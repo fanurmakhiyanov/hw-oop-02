@@ -3,8 +3,8 @@ package ru.gb.oseminar.data;
 public class Teachers extends User {
     private Long teacherID;
 
-    public Teachers(String firstName, String lastName, String patronymic, Long teacherID) {
-        super(firstName, lastName, patronymic);
+    public Teachers(String firstName, String patronymic, String lastName, Long teacherID) {
+        super(firstName, patronymic, lastName);
         this.teacherID = teacherID;
     }
 

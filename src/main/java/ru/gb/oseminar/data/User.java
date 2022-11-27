@@ -2,13 +2,14 @@ package ru.gb.oseminar.data;
 
 public abstract class User {
     private String firstName;
-    private String lastName;
     private String patronymic;
+    private String lastName;
 
-    public User(String firstName, String lastName, String patronymic) {
+
+    public User(String firstName, String patronymic, String lastName) {
         this.firstName = firstName;
-        this.lastName = lastName;
         this.patronymic = patronymic;
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -19,14 +20,6 @@ public abstract class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getPatronymic() {
         return patronymic;
     }
@@ -35,12 +28,20 @@ public abstract class User {
         this.patronymic = patronymic;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
+        return "User {" +
+                "firstName = '" + firstName + '\'' +
+                ", patronymic = '" + patronymic + '\'' +
+                ", lastName = '" + lastName +'\'' +
                 '}';
     }
 }

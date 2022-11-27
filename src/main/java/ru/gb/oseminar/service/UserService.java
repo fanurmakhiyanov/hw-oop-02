@@ -1,6 +1,7 @@
 package ru.gb.oseminar.service;
 
 import ru.gb.oseminar.data.Students;
+import ru.gb.oseminar.data.Teachers;
 import ru.gb.oseminar.data.User;
 
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ public class UserService implements DataService {
 
     @Override
     public void createUser(String firstName,
-                           String lastName,
-                           String patronymic) {
+                           String patronymic,
+                           String lastName) {
         Long id = 0L;
         for (User item : this.users) {
             if (item instanceof Students) {
@@ -26,8 +27,13 @@ public class UserService implements DataService {
                 }
             }
         }
-        this.users.add(new Students(firstName, lastName, patronymic, id++));
+        this.users.add(new Students(firstName, patronymic, lastName, id++));
     }
+
+    public Teachers createUser(String firstName, String patronymic, String lastName, Long Id) {
+        return new Teachers(firstName, patronymic, lastName, Id);
+    }
+
 
     @Override
     public List<User> getAll() {
@@ -44,4 +50,15 @@ public class UserService implements DataService {
             }
         }
     }
+
+    public List<Students> getAllStudents(){
+        List<Students> listStudents = new ArrayList<>();
+        for (User user:this.getAll()){
+            if(user instanceof Students) {
+                listStudents.add((Students) user);
+            }
+        }
+        return listStudents;
+    }
+
 }
