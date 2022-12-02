@@ -5,7 +5,7 @@ import ru.gb.oseminar.data.User;
 import java.util.List;
 
 public interface DataService {
-    void createUser(String firstName, String patronymic, String lastName);
+    void createUser(String firstName, String lastName, String patronymic);
 
     List<User> getAll();
 

@@ -1,12 +1,9 @@
 package ru.gb.oseminar.controller;
 
-import ru.gb.oseminar.data.Students;
-import ru.gb.oseminar.data.StudyGroup;
-import ru.gb.oseminar.data.Teachers;
-import ru.gb.oseminar.data.User;
+import ru.gb.oseminar.data.*;
 import ru.gb.oseminar.service.StudyGroupService;
 import ru.gb.oseminar.service.UserService;
-import ru.gb.oseminar.view.StudentsView;
+import ru.gb.oseminar.view.StudentView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,14 +11,15 @@ import java.util.List;
 
 public class Controller {
     private final UserService userService = new UserService();
-    private final StudentsView studentsView = new StudentsView();
+    private final StudentView studentsView = new StudentView();
     private final StudyGroupService studyGroupService = new StudyGroupService();
+    private List<Student> studentsList;
 
     public void createUser(String firstName, String patronymic, String lastName) {
         userService.createUser(firstName, patronymic, lastName);
     }
 
-    public Teachers createTeacher(String firstName, String patronymic, String lastName, Long teacherId){
+    public Teacher createTeacher(String firstName, String patronymic, String lastName, Long teacherId){
         return userService.createUser(firstName, patronymic, lastName, teacherId);
     }
 
@@ -30,28 +28,37 @@ public class Controller {
         studentsView.sendOnConsole(students);
     }
 
-    public List<Students> getOnlyStudents(){
+    public List<Student> getOnlyStudents(){
         return userService.getAllStudents();
     }
 
-    public void showTeacherInfo(Teachers teachers) {
+    public void showTeacherInfo(Teacher teachers) {
         List<User> teacher = new ArrayList<>();
         teacher.add(teachers);
         studentsView.sendOnConsole(teacher);
     }
 
-    public List<StudyGroup> createTimetable(Teachers teachers, List<Students> studentsList){
-        return studyGroupService.completeStudyGroup(teachers, studentsList);
+    public void showStudyGroups(){
+        studentsView.showStudyGroups(this.studyGroupService.getStudyGroupList());
+    }
+
+    public void showSortStudyGroup(List<Student> studentsList) {
+        studentsList.sort(new StudyGroupComparator());
+        studentsView.showStudents(studentsList);
+    }
+
+    public void createTimetable(Teacher teachers, List<Student> studentsList){
+        studyGroupService.completeStudyGroup(teachers, studentsList);
     }
 
     public void showStudyGroups(List<StudyGroup> StudyGroups) {
         studentsView.showStudyGroups(StudyGroups);
     }
 
-    public void showSortStudyGroup(List <Students> studentsList){
-        studentsList.sort(new Comparator<Students>() {
+    public void showSortStudyGroup(List <Student> studentsList){
+        studentsList.sort(new Comparator<Student>() {
             @Override
-            public int compare(Students o1, Students o2) {
+            public int compare(Student o1, Student o2) {
                 if (o1.getLastName().equalsIgnoreCase(o2.getLastName())) {
                     return o1.getFirstName().compareTo(o2.getFirstName());
                 }
@@ -61,7 +68,7 @@ public class Controller {
         studentsView.showStudents(studentsList);
     }
 
-
-
-
+    public void showStudentsInGroups() {
+        this.studentsView.showStudentsInGroup(this.studyGroupService.getStudyGroupList());
+    }
 }

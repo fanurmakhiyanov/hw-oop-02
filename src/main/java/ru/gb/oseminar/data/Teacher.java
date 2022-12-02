@@ -1,10 +1,10 @@
 package ru.gb.oseminar.data;
 
-public class Teachers extends User {
+public class Teacher extends User {
     private Long teacherID;
 
-    public Teachers(String firstName, String patronymic, String lastName, Long teacherID) {
-        super(firstName, patronymic, lastName);
+    public Teacher(String firstName, String lastName, String patronymic, Long teacherID) {
+        super(firstName, lastName, patronymic);
         this.teacherID = teacherID;
     }
 

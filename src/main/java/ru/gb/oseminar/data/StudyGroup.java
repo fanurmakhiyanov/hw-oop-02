@@ -1,38 +1,47 @@
 package ru.gb.oseminar.data;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class StudyGroup {
 
-    private Teachers teacher;
-    private List<Students> studentsList;
+    private Teacher teacher;
+    private List<Student> studentsList;
+    private static final AtomicLong studyGroupID = new AtomicLong(0);
+    private final Long idStudentGroup;
 
-    public StudyGroup(Teachers teacher, List<Students> studentsList) {
+    public StudyGroup(Teacher teacher, List<Student> studentsList) {
         this.teacher = teacher;
         this.studentsList = studentsList;
+        this.idStudentGroup = studyGroupID.incrementAndGet();
     }
 
-    public Teachers getTeacher() {
+    public Long getIdStudentGroup() {
+        return idStudentGroup;
+    }
+
+    public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teachers teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 
-    public List<Students> getStudentsList() {
+    public List<Student> getStudentsList() {
         return studentsList;
     }
 
-    public void setStudentsList(List<Students> studentsList) {
+    public void setStudentsList(List<Student> studentsList) {
         this.studentsList = studentsList;
     }
 
     @Override
     public String toString() {
         return "StudyGroup{" +
-                " teacher = " + teacher +
-                ", studentsList = " + studentsList +
+                "teacher=" + teacher +
+                ", studentsList=" + studentsList +
+                ", idStudentGroup=" + idStudentGroup +
                 '}';
     }
 }

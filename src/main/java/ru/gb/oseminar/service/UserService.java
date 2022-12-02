@@ -1,14 +1,13 @@
 package ru.gb.oseminar.service;
 
-import ru.gb.oseminar.data.Students;
-import ru.gb.oseminar.data.Teachers;
+import ru.gb.oseminar.data.Student;
+import ru.gb.oseminar.data.Teacher;
 import ru.gb.oseminar.data.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements DataService {
-
     private final List<User> users;
 
     public UserService() {
@@ -16,25 +15,18 @@ public class UserService implements DataService {
     }
 
     @Override
-    public void createUser(String firstName,
-                           String patronymic,
-                           String lastName) {
-        Long id = 0L;
-        for (User item : this.users) {
-            if (item instanceof Students) {
-                if (id < ((Students) item).getStudentID()) {
-                    id = ((Students) item).getStudentID();
-                }
-            }
-        }
-        this.users.add(new Students(firstName, patronymic, lastName, id++));
+    public void createUser(String firstName, String lastName, String patronymic) {
+        this.users.add(new Student(firstName, lastName, patronymic));
     }
 
-    public Teachers createUser(String firstName, String patronymic, String lastName, Long Id) {
-        return new Teachers(firstName, patronymic, lastName, Id);
+    public Teacher createUser(String firstName, String lastName, String patronymic, Long Id) {
+        return new Teacher(firstName, lastName, patronymic, Id);
     }
 
+    public void clearAll() {
+        this.users.clear();
 
+    }
     @Override
     public List<User> getAll() {
         return this.users;
@@ -42,23 +34,23 @@ public class UserService implements DataService {
 
     @Override
     public void deleteUser(Long id) {
-        for (User item: this.users) {
-            if (item instanceof Students) {
-                if (id.equals(((Students) item).getStudentID())) {
-                    this.users.remove(item);
+        for (User user : this.users) {
+            if (user instanceof Student) {
+                if (id.equals(((Student) user).getStudentID())) {
+                    this.users.remove(user);
                 }
             }
         }
     }
 
-    public List<Students> getAllStudents(){
-        List<Students> listStudents = new ArrayList<>();
-        for (User user:this.getAll()){
-            if(user instanceof Students) {
-                listStudents.add((Students) user);
+    public List<Student> getAllStudents() {
+        List<Student> listStudents = new ArrayList<>();
+        for (User user : this.getAll()
+        ) {
+            if (user instanceof Student) {
+                listStudents.add((Student) user);
             }
         }
         return listStudents;
     }
-
 }

@@ -2,13 +2,12 @@ package ru.gb.oseminar.data;
 
 import java.util.Comparator;
 
-public class StudyGroupComparator implements Comparator <Students>{
+public class StudyGroupComparator implements Comparator<Student> {
     @Override
-    public int compare(Students o1, Students o2) {
-        if (o1.getLastName().equalsIgnoreCase(o2.getLastName())){
-            return o1.getFirstName().compareTo(o2.getFirstName());
+    public int compare(Student s1, Student s2) {
+        if (s1.getLastName().equalsIgnoreCase(s2.getLastName())) {
+            return s1.getFirstName().compareTo(s2.getFirstName());
         }
-
-        return o1.getLastName().compareTo(o2.getLastName());
+        return s1.getLastName().compareTo(s2.getLastName());
     }
 }
